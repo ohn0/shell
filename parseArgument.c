@@ -14,3 +14,11 @@ char** parseArgument(char* command){
 	arguments[i] = -1;
 	return arguments;
 }
+
+int freeArgument(char** argList, int argSize){
+	int cp = 0;
+	while(cp != argSize){
+		free((char*) argList[c++]);
+	}
+	return 1;
+}
