@@ -19,6 +19,11 @@ int analyzeArgument(char** command){
 	if(argField & PIPE_ENABLED){
 		enablePiping(command);
 	}
+
+	if(argField & BG_ENABLED){
+		prepareIO_BG_PIPE(command, argField);
+	}
+
 	if(!argumentError){return -1;}
 	return argField;	
 }

@@ -2,7 +2,7 @@
 
 int executeCommand(char** commands, int argFLag){
 	char * command = commands[0];
-
+	if(commands[0] == NULL){return -1;}
 	if(strcmp(command, "cd") == 0){
 		executeCD(commands[1]);
 	}

@@ -40,7 +40,7 @@ void updateCurrentDir();
 char** parseArgument(char*, char**);
 int freeArgument(char**, int);
 int freeCommand(char*);
-int prepareIO_BG_PIPE(int);
+int prepareIO_BG_PIPE(char** ,int);
 int activateParameter(int*, int, char*);
 int analyzeArgument(char**);
 int executeQuit();
