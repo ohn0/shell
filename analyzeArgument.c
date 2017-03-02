@@ -19,31 +19,31 @@ int analyzeArgument(char** command){
 	if(argField & PIPE_ENABLED){
 		enablePiping(command);
 	}
-	executeCommand(command, argField);
-	if(argumentError){return -1;}
+	if(!argumentError){return -1;}
 	return argField;	
 }
 
 
 int generateArgFlag(char* commandParameter, int* argField, char* command){
+	int validRedirect = 1;
 	if(strcmp(commandParameter, "<") == 0){
-		redirect(command, STD_IN);
+		validRedirect = redirect(command, STD_IN);
 	}
 	else if(strcmp(commandParameter, ">") == 0){
-		redirect(command, STD_OU);
+		validRedirect = redirect(command, STD_OU);
 	}
 	else if(strcmp(commandParameter, ">>") == 0){
-		redirect(command, STD_OU_APPEND);
+		validRedirect = redirect(command, STD_OU_APPEND);
 	}
 	else if(strcmp(commandParameter, "|") == 0){
 		*argField |= PIPE_ENABLED;
 	}
 	else if(strcmp(commandParameter, "&") == 0 && command == END_OF_ARGS){
-		//enable bg process
+		*argField |= BG_ENABLED;
 		}
 	
 
-	return 0;
+	return validRedirect;
 }
 
 int freeCommand(char* command){

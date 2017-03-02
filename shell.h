@@ -17,7 +17,8 @@
 #define L_ENABLED 	 0x10
 #define R_ENABLED 	 0x100
 #define IN_ENABLED 	 0x1
-#define PIPE_ENABLED	 0x10000
+#define PIPE_ENABLED	 0x10
+#define BG_ENABLED	 0x100
 #define END_OF_ARGS	 -0x1
 #define MAX_ARGS 20
 extern int FDstdout;
@@ -33,6 +34,8 @@ int executeProgram(char**, int);
 int executeLS(char**);
 int executeCD(char*);
 int findArgsLS(int, char**);
+void updateCurrentDir();
+void initializeEnvironment();
 void updateCurrentDir();
 char** parseArgument(char*, char**);
 int freeArgument(char**, int);

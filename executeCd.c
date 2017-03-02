@@ -11,15 +11,17 @@ int executeCD(char* path){
 
 
 void updateCurrentDir(){
-	char* cwd = (char *) malloc(200 * sizeof(char));
-	getcwd(cwd, 200);
-	return cwd;
+	getcwd(environment[0], 100);
 }
 
 void initializeEnvironment(){
-	char** environment = (char**) malloc(10 * sizeof(char*));
+	environment = (char**) malloc(10 * sizeof(char*));
 	int i = 0;
 	while(i < 10){
-	//	environment[i] = (char*) malloc
+		environment[i] = (char*) malloc(100 * sizeof(char));
+		i++;
 	}
+	getcwd(environment[0], 100);
+	getlogin_r(environment[1], 100);
+	gethostname(environment[2], 100);
 }
