@@ -1,6 +1,10 @@
 #include "shell.h"
-
+int FDstdout = 1;
+int FDstdin = 0;
 int analyzeArgument(char** command){
+	if(command[0] == -1){
+		return -1;
+	}
 	char* commandParameter;
 	int i = 0;
 	int argField = 0;
@@ -12,6 +16,10 @@ int analyzeArgument(char** command){
 		}
 		i++;	
 	}
+	if(argField & PIPE_ENABLED){
+		enablePiping(command);
+	}
+	executeCommand(command, argField);
 	if(argumentError){return -1;}
 	return argField;	
 }
@@ -19,27 +27,30 @@ int analyzeArgument(char** command){
 
 int generateArgFlag(char* commandParameter, int* argField, char* command){
 	if(strcmp(commandParameter, "<") == 0){
-		if(activateParameter(argField, IN_ENABLED, command)){
-		}else{return 1;}
+		redirect(command, STD_IN);
 	}
 	else if(strcmp(commandParameter, ">") == 0){
-		if(activateParameter(argField, OUT_ENABLED, command)){
-		}else{return 1;}
+		redirect(command, STD_OU);
 	}
 	else if(strcmp(commandParameter, ">>") == 0){
-		if(activateParameter(argField, OUT_APP_ENABLED, command)){
-		}else{return 1;}
+		redirect(command, STD_OU_APPEND);
 	}
 	else if(strcmp(commandParameter, "|") == 0){
-		if(activateParameter(argField, PIPE_ENABLED, command)){
-		}else{return 1;}
+		*argField |= PIPE_ENABLED;
 	}
 	else if(strcmp(commandParameter, "&") == 0 && command == END_OF_ARGS){
-		*argField |= BG_ENABLED;
+		//enable bg process
 		}
+	
+
 	return 0;
 }
 
+int freeCommand(char* command){
+	free((char*) command);
+	command = NULL;
+	return 1;
+}
 int activateParameter(int* argField, int flag, char* nextCommand){
 	if(nextCommand != NULL){
 		*argField |= flag;
@@ -48,4 +59,5 @@ int activateParameter(int* argField, int flag, char* nextCommand){
 	else{
 		return 0;
 	}
+
 }

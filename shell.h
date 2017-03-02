@@ -3,6 +3,7 @@
 #ifndef _SHELL_H
 #define _SHELL_H
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <stdio.h>
 #include <dirent.h>
 #include <unistd.h>
@@ -16,17 +17,28 @@
 #define L_ENABLED 	 0x10
 #define R_ENABLED 	 0x100
 #define IN_ENABLED 	 0x1
-#define OUT_ENABLED 	 0x10
-#define OUT_APP_ENABLED  0x100
-#define BG_ENABLED	 0x1000
 #define PIPE_ENABLED	 0x10000
 #define END_OF_ARGS	 -0x1
+#define MAX_ARGS 20
+extern int FDstdout;
+extern int FDstdin;
+extern int currentStdout;
+extern int quit;
+extern int currentStdin;
+extern char** environment;
 int resetRedirect();
-int executeLS(int, char**);
+int executeCommand(char**, int);
+int executeFromBin(char**, int);
+int executeProgram(char**, int);
+int executeLS(char**);
 int executeCD(char*);
-int findArgsLS(int, int, char**);
-char** parseArgument(char*);
+int findArgsLS(int, char**);
+void updateCurrentDir();
+char** parseArgument(char*, char**);
+int freeArgument(char**, int);
+int freeCommand(char*);
 int prepareIO_BG_PIPE(int);
 int activateParameter(int*, int, char*);
 int analyzeArgument(char**);
+int executeQuit();
 #endif

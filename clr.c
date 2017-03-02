@@ -1,7 +1,6 @@
-#include <stdio.h>
+#include "shell.h"
 
-
-int main()
+int executeClr()
 {
 	char newlines[100];
 	int i;
