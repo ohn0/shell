@@ -1,6 +1,6 @@
 #include "shell.h"
-int currentStdin;
-int currentStdout;
+int currentStdin = 0;
+int currentStdout = 1;
 int redirect(char* newRedirect, int oldFD){
 	int newFd;
 	FDstdout = dup(STD_OU);
@@ -26,9 +26,11 @@ int redirect(char* newRedirect, int oldFD){
 }
 
 int resetRedirect(){
-	dup2(FDstdin, STD_IN);
-	dup2(FDstdout, STD_OU);
-	close(FDstdin);
-	close(FDstdout);
+	if(FDstdin != STD_IN){
+		dup2(FDstdin, STD_IN);
+	}
+	if(FDstdout != STD_OU){
+		dup2(FDstdout, STD_OU);
+	}
 	return 0;
 }

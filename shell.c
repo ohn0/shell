@@ -26,12 +26,14 @@ int main(){
 		parseArgument(userInput, commands);
 		//Enable redirection
 		argField = analyzeArgument(commands);
-		if(argField != -1){
+		if(argField != -1 && argField != -2){
 			executeCommand(commands, argField);
 		}
+		else if(argField & BG_ENABLED){printf("\n");}
 		else{
 			printf("Not a valid command\n");}
 		freeArgument(commands, MAX_ARGS);
+		resetRedirect();
 	}		
 	return 0;
 

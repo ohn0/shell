@@ -16,12 +16,16 @@ int analyzeArgument(char** command){
 		}
 		i++;	
 	}
+	
+	if(checkValidCommand(command, argField) == 0){printf("Error: cannot make built-in function a background process.\n"); return -1 ;}
+
+
 	if(argField & PIPE_ENABLED){
-		enablePiping(command);
+	//	enablePiping(command);
 	}
 
 	if(argField & BG_ENABLED){
-		prepareIO_BG_PIPE(command, argField);
+	//	if(!prepareIO_BG_PIPE(command, argField)){return -2;}
 	}
 
 	if(!argumentError){return -1;}

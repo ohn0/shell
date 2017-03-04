@@ -8,13 +8,12 @@ int prepareIO_BG_PIPE(char** commands, int argField){
 	if(argField & BG_ENABLED){
 		pid_t myID = fork();
 		if(myID == 0){
-			printf("running\n");
 			quit = 1;
-			close(1);
+			printf("Background: %d\n", getpid());
 		}
 		else{
-			freeCommand(commands[0]);
+			return 0;
 		}
 	}
-
+	return 1;
 }
