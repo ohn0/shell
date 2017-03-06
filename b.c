@@ -1,4 +1,5 @@
 #include <stdio.h>
+//Test piping.
 int main(){
 	int c;
 	while((c = getchar()) != '\n'){

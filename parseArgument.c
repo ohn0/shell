@@ -1,6 +1,8 @@
 #include "shell.h"
 
 char** parseArgument(char* command, char** commands){
+	//Tokenize each of the commands and place them in a char array allocated to their length.
+	//Return the array of char*.
 	char* arg = strtok(command, " ");
 	int i = 0;
 	size_t argLen;

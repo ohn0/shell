@@ -1,5 +1,5 @@
 #include "shell.h"
-
+//Clears the shell screen.
 int executeClr()
 {
 	char newlines[100];
@@ -8,6 +8,7 @@ int executeClr()
 		newlines[i] = '\n';
 	}
 	newlines[i-1] = '\0';
+	//Reset the cursor to the top left corner of the shell.
 	printf("%s\033[H", newlines);
 
 

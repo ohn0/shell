@@ -1,5 +1,3 @@
-//When you are done with an argument from parseArgument's char* array, free the location and always
-//check to make sure you are not dereferencing a null pointer. 
 #ifndef _SHELL_H
 #define _SHELL_H
 #include <sys/types.h>
@@ -28,7 +26,7 @@ extern int quit;
 extern int currentStdin;
 extern char** environment;
 extern int pipeStatus;
-int executeFromFile();
+int executeFromFile(char *);
 int executeFromUser();
 int redirect(char *, int);
 int resetRedirect();
@@ -42,7 +40,6 @@ int findArgsLS(int, char**);
 int checkValidCommand(char**, int);
 void updateCurrentDir();
 void initializeEnvironment();
-void updateCurrentDir();
 char** parseArgument(char*, char**);
 int freeArgument(char**, int);
 int freeCommand(char*);
