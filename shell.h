@@ -20,20 +20,26 @@
 #define PIPE_ENABLED	 0x10
 #define BG_ENABLED	 0x100
 #define END_OF_ARGS	 -0x1
-#define MAX_ARGS 20
+#define MAX_ARGS 200
 extern int FDstdout;
 extern int FDstdin;
 extern int currentStdout;
 extern int quit;
 extern int currentStdin;
 extern char** environment;
+extern int pipeStatus;
+int executeFromFile();
+int executeFromUser();
+int redirect(char *, int);
 int resetRedirect();
 int executeCommand(char**, int);
 int executeFromBin(char**, int);
-int executeProgram(char**, int);
+int executeFromCWD(char**, int);
+int executeProgram(char**, char *, int, int);
 int executeLS(char**);
 int executeCD(char*);
 int findArgsLS(int, char**);
+int checkValidCommand(char**, int);
 void updateCurrentDir();
 void initializeEnvironment();
 void updateCurrentDir();
@@ -44,4 +50,10 @@ int prepareIO_BG_PIPE(char** ,int);
 int activateParameter(int*, int, char*);
 int analyzeArgument(char**);
 int executeQuit();
+int executeHelp();
+int executeEnviron();
+int executeEcho(char**);
+int executePause();
+int executeClr();
+int generateArgFlag(char*, int*, char*);
 #endif

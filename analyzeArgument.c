@@ -2,7 +2,7 @@
 int FDstdout = 1;
 int FDstdin = 0;
 int analyzeArgument(char** command){
-	if(command[0] == -1){
+	if(command[0] == (char*)-1){
 		return -1;
 	}
 	char* commandParameter;
@@ -21,11 +21,7 @@ int analyzeArgument(char** command){
 
 
 	if(argField & PIPE_ENABLED){
-	//	enablePiping(command);
-	}
-
-	if(argField & BG_ENABLED){
-	//	if(!prepareIO_BG_PIPE(command, argField)){return -2;}
+		prepareIO_BG_PIPE(command, argField);
 	}
 
 	if(!argumentError){return -1;}
@@ -35,19 +31,19 @@ int analyzeArgument(char** command){
 
 int generateArgFlag(char* commandParameter, int* argField, char* command){
 	int validRedirect = 1;
-	if(strcmp(commandParameter, "<") == 0){
+	if(strcmp(commandParameter, "<") == 0 && FDstdin == 0){
 		validRedirect = redirect(command, STD_IN);
 	}
-	else if(strcmp(commandParameter, ">") == 0){
+	else if(strcmp(commandParameter, ">") == 0 && FDstdout == 1){
 		validRedirect = redirect(command, STD_OU);
 	}
-	else if(strcmp(commandParameter, ">>") == 0){
+	else if(strcmp(commandParameter, ">>") == 0 && FDstdout == 1){
 		validRedirect = redirect(command, STD_OU_APPEND);
 	}
 	else if(strcmp(commandParameter, "|") == 0){
 		*argField |= PIPE_ENABLED;
 	}
-	else if(strcmp(commandParameter, "&") == 0 && command == END_OF_ARGS){
+	else if(strcmp(commandParameter, "&") == 0 && command == (char*)END_OF_ARGS){
 		*argField |= BG_ENABLED;
 		}
 	
@@ -57,7 +53,7 @@ int generateArgFlag(char* commandParameter, int* argField, char* command){
 
 int freeCommand(char* command){
 	free((char*) command);
-	command = NULL;
+	command = (char*)NULL;
 	return 1;
 }
 int activateParameter(int* argField, int flag, char* nextCommand){

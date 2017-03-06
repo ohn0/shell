@@ -1,4 +1,3 @@
-#include "shell.h"
 
 int enablePiping(char** command){
 	int pipeFD[2];

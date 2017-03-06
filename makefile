@@ -1,2 +1,2 @@
-shill: shell.c parseArgument.c analyzeArgument.c prepareIO_BG_PIPE.c executeCd.c executeDir.c executeQuit.c executeProgram.c clr.c redirect.c enablePiping.c findArgLocation.c shell.h
-	gcc -g -Wall shell.c parseArgument.c analyzeArgument.c prepareIO_BG_PIPE.c  executeCd.c executeDir.c executeQuit.c executeProgram.c clr.c redirect.c enablePiping.c findArgLocation.c -o shill
+shell: shellExecution.c shell.c parseArgument.c analyzeArgument.c executeMisc.c executeEcho.c  prepareIO_BG_PIPE.c executeCd.c executeDir.c executeQuit.c executeProgram.c clr.c redirect.c findProgram.c shell.h
+	gcc -g -Wall shellExecution.c shell.c parseArgument.c analyzeArgument.c executeMisc.c executeEcho.c prepareIO_BG_PIPE.c  executeCd.c executeDir.c executeQuit.c executeProgram.c clr.c redirect.c findProgram.c -o shell

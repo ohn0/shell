@@ -1,14 +1,18 @@
 #include "shell.h"
 
 int executeCD(char* path){
+	if(path == (char*)-1){
+		printf("%s\n", getcwd(NULL,0));
+		return 0;
+	}
+
 	if(chdir(path) == -1){
-		printf("%s\n", getcwd(NULL, 0));
+		printf("Error: Directory %s does not exist.\n", path);
 		return 0;
 	}	
 	updateCurrentDir();
 	return 1;
 }
-
 
 void updateCurrentDir(){
 	getcwd(environment[0], 100);
@@ -21,7 +25,12 @@ void initializeEnvironment(){
 		environment[i] = (char*) malloc(100 * sizeof(char));
 		i++;
 	}
+	
+
+
 	getcwd(environment[0], 100);
 	getlogin_r(environment[1], 100);
 	gethostname(environment[2], 100);
+
+	environment[3] = NULL;
 }

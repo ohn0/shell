@@ -5,19 +5,19 @@ char** parseArgument(char* command, char** commands){
 	int i = 0;
 	size_t argLen;
 	while(arg){
-		argLen = strlen(&arg);
-		commands[i] = (char*) malloc(argLen*sizeof(char));
+		argLen = strlen(arg);
+		commands[i] = (char*) malloc((argLen)*sizeof(char));
 		strcpy(commands[i++], arg);
 		arg = strtok(NULL, " ");
 	}	
-	commands[i] = -1;
+	commands[i] = (char*)-1;
 	return commands;
 }
 
 int freeArgument(char** argList, int argSize){
 	//deallocate the entire command.
 	int cp = 0;
-	while(argList[cp] != -1){
+	while(argList[cp] != (char*)-1){
 		if(argList[cp] != NULL){
 			freeCommand(argList[cp]);
 		}

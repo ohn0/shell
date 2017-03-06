@@ -1,0 +1,12 @@
+echo :::::testing built-in commands:::::
+environ
+cd
+dir -l
+echo :::::::::testing regular commands::::::
+ls
+pwd
+uname
+echo :::::::::testing programs in dir:::::::
+a
+a | b
+
